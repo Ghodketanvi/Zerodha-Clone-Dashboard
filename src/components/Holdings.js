@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 import { VerticalGraph } from "./VerticalGraph";
 
-const API_URL = process.env.REACT_APP_API_URL;
+// import { holdings } from "../data/data";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/allHoldings`)
-      .then((res) => {
-        console.log(res.data);
-        setAllHoldings(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching holdings:", err);
-      });
+    axios.get("http://localhost:3002/allHoldings").then((res) => {
+      // console.log(res.data);
+      setAllHoldings(res.data);
+    });
   }, []);
 
-  const labels = allHoldings.map((stock) => stock.name);
+  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const labels = allHoldings.map((subArray) => subArray["name"]);
 
   const data = {
     labels,
@@ -31,6 +27,22 @@ const Holdings = () => {
       },
     ],
   };
+
+  // export const data = {
+  //   labels,
+  //   datasets: [
+  // {
+  //   label: 'Dataset 1',
+  //   data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+  // },
+  //     {
+  //       label: 'Dataset 2',
+  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+  //     },
+  //   ],
+  // };
 
   return (
     <>
@@ -76,13 +88,13 @@ const Holdings = () => {
       <div className="row">
         <div className="col">
           <h5>
-            29,875.<span>55</span>
+            29,875.<span>55</span>{" "}
           </h5>
           <p>Total investment</p>
         </div>
         <div className="col">
           <h5>
-            31,428.<span>95</span>
+            31,428.<span>95</span>{" "}
           </h5>
           <p>Current value</p>
         </div>
@@ -91,7 +103,6 @@ const Holdings = () => {
           <p>P&L</p>
         </div>
       </div>
-
       <VerticalGraph data={data} />
     </>
   );

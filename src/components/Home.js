@@ -1,14 +1,14 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Landing from "./Landing";              // change this if your landing component has a different name or path
-import Dashboard from "./dashboard/Dashboard";
+
+import Dashboard from "./Dashboard";
+import TopBar from "./TopBar";
 
 const Home = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/dashboard/*" element={<Dashboard />} />
-    </Routes>
+    <>
+      <TopBar />
+      <Dashboard />
+    </>
   );
 };
 
