@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
-import axios, { all } from "axios";
+import React, { useState, } from "react";
+
 import { VerticalGraph } from "./VerticalGraph";
 
 // import { holdings } from "../data/data";
 
 const Holdings = () => {
-  const [allHoldings, setAllHoldings] = useState([]);
+  const [allHoldings] = useState([]);
 
-  useEffect(() => {
-    axios.get("http://localhost:3002/allHoldings").then((res) => {
-      // console.log(res.data);
-      setAllHoldings(res.data);
-    });
-  }, []);
+  
 
   // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const labels = allHoldings.map((subArray) => subArray["name"]);
@@ -24,6 +19,7 @@ const Holdings = () => {
         label: "Stock Price",
         data: allHoldings.map((stock) => stock.price),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
+        alt: "Stock Price",
       },
     ],
   };
